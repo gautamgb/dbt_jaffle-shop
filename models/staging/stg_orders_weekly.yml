@@ -1,0 +1,32 @@
+models:
+  - name: stg_orders_weekly
+    description: |
+      Weekly order rollup built from `stg_orders`. Contains one row per `order_week`
+      and is intended for lightweight trend analysis on order volume, customer activity,
+      revenue, tax, and average order value.
+    columns:
+      - name: order_week
+        description: Start date of the week orders were placed, derived from `ordered_at`.
+        data_tests:
+          - not_null
+          - unique
+      - name: orders_count
+        description: Count of orders placed in `order_week`.
+        data_tests:
+          - not_null
+      - name: unique_customers
+        description: Count of distinct customers who placed an order in `order_week`.
+        data_tests:
+          - not_null
+      - name: total_revenue
+        description: Sum of `order_total` for all orders placed in `order_week`.
+        data_tests:
+          - not_null
+      - name: total_tax
+        description: Sum of `tax_paid` for all orders placed in `order_week`.
+        data_tests:
+          - not_null
+      - name: avg_order_value
+        description: Average `order_total` across all orders placed in `order_week`.
+        data_tests:
+          - not_null
