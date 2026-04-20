@@ -1,0 +1,28 @@
+models:
+  - name: stg_orders_daily
+    description: |
+      Daily order rollup built from `stg_orders`. Contains one row per `order_date`
+      and is intended for lightweight trend analysis on order volume, customer activity,
+      revenue, and tax.
+    columns:
+      - name: order_date
+        description: Calendar date the orders were placed, derived from `ordered_at`.
+        data_tests:
+          - not_null
+          - unique
+      - name: orders_count
+        description: Count of orders placed on `order_date`.
+        data_tests:
+          - not_null
+      - name: unique_customers
+        description: Count of distinct customers who placed an order on `order_date`.
+        data_tests:
+          - not_null
+      - name: total_revenue
+        description: Sum of `order_total` for all orders placed on `order_date`.
+        data_tests:
+          - not_null
+      - name: total_tax
+        description: Sum of `tax_paid` for all orders placed on `order_date`.
+        data_tests:
+          - not_null
